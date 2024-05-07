@@ -6,3 +6,22 @@ co server with hub copper straight through
 homerouter to hub with copper crossover
 hub to router with copper crossover
 router to server with copper crossover 
+
+
+
+prac 9 
+open omnet++
+select inet4.5 folder
+select folder showcases
+select folder wireless
+select folder directional antennas
+click on directional antennas show.ned
+
+prac 6
+basic mannet implementation
+home device, smartphone,DLC-100 gateway 
+
+prac 5 
+establish ripv1 network
+open router->cli>exit>enable>show ip route>analyze the routing table 
+
