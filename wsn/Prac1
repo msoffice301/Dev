@@ -1,1 +1,8 @@
+prac 10
+devices: smartphone,cell tower,CO server,homerouter,PT hub,router 1941,ser
 
+cell tower to co server with coaxial cable
+co server with hub copper straight through
+homerouter to hub with copper crossover
+hub to router with copper crossover
+router to server with copper crossover 
