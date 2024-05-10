@@ -1,1 +1,103 @@
+To create a Simple Web Service that converts the temperature from Celsius to
+Fahrenheit and vice v ersa
 
+STEPS:
+
+1) Create a Web Application:
+  File > New Project > Java Web > Web Application > Name: p1 >
+  Add GlassFish Server 4.1 > Finish > (you’ll get index.html, delete this file)
+2) Create a Web Service in that project:
+Right Click on Project Name > New > Web Service… >
+Name:tempwebservice and Package Name:ty > OK > (you’ll get tempwebservice.java file)
+3) As we have created our WEB SERVICE(i.e. tempwebservice), WE’LL NOWADDSOME
+FUNCTIONALITIES (i.e. temperature conversion methods). So, in the class tempwebservice, add 2 methods by doing:
+a) Right Click > Insert Code > Add Web Service Operation…>
+Name: convertFtoC >
+Return Type: float >
+Add a Parameter ‘a’ with Type: float > OK >
+Now add formula in return statement((a-32)*5/9) . b) Right Click > Insert Code > Add Web Service Operation…>
+Name: convertCtoF >
+Return Type: float >
+Add a Parameter ‘b’ with Type: float > OK >
+Now add formula in return statement((b*9/5)+32) .
+
+
+CODE(tempwebservice.java):
+
+package ty;
+import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+
+@WebService(serviceName = "tempwebservice")
+public class tempwebservice {
+@WebMethod(operationName = "convertFtoC")
+public float convertFtoC(@WebParam(name = "a") float a)
+{ return ((a-32)*5/9);
+}
+@WebMethod(operationName = "convertCtoF")
+public float convertCtoF(@WebParam(name = "b") float b)
+{ return ((b*9/5)+32);
+}}
+
+
+4) Compile(F9) and Deploy(right click on Project Name > Deploy). (If problem in deployment occurs, then do this):
+5) Now we’ll test our web service. So navigate to:
+Projects > Project Name > Web Services > right click on tempwebservice >
+click Test Web Service > (the browser will open). (tempwebservice here is a WSDL file)
+6) Perform conversions.
+
+7) Now we’ll be using the created Web Service(i.e. tempwebservice) by creating our WEBSERVICE CLIENT. So, Right Click on Project Name > New > Other > Web Services > Web Service Client…>Browse your Project Name and select WSDL file > Add Package Name: tycs > Finish. (NOTE THAT : the package we first created in WEB SERVICE(i.e. ty) will now be linkedtoour
+created package in CLIENT(i.e. tycs). We can also see the Generated Sources in the SolutionExplorer. We will further use this new package name for the rest.)
+
+8) Now to make front page, we need to create a JSP file. So, Right Click on Project Name > New > JSP > File Name: index > Finish.  Now from the palette, add HTML Form(Action:indexaction.jsp, Type:text, Method:Post)  Inside Form tag, add Text Input(Name:txt)  Inside Form tag, add Button(Label:Convert, Type:submit, Name:convert)
+
+
+CODE(index.jsp):
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<form action="indexaction.jsp" method="POST">
+Enter Temperature:
+<input type="text" name="txt" value="" />
+<input type="submit" value="Convert" name="convert" />
+</form>
+</body>
+</html>
+9) Now to create the action behind that, we’ll create another JSP file, with a name thatis
+declared in the previous JSP file. So, Right Click on Project Name > New > JSP > File Name: indexaction > Finish. Then add some <%JSP code%> under body tag.
+
+
+CODE(indexaction.jsp):
+<%@page contentType="text/html"pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+
+</head>
+<body>
+<%
+tycs.Tempwebservice_Service obj=new tycs.Tempwebservice_Service(); //obj of service
+tycs.Tempwebservice port=obj.getTempwebservicePort(); //port for service
+String val=request.getParameter("txt"); //took the input
+float temp=Float.parseFloat(val); //parse the input variable to float
+float result1=port.convertFtoC(temp); //calling the web service method1
+float result2=port.convertCtoF(temp); //calling the web servicemethod2
+out.println("Temperature conversion from F to C: "+result1);
+%>
+<br/>
+<%
+out.println("Temperature conversion from C to F: "+result2);
+%>
+</body>
+</html>
+
+10) Now RUN “index.jsp” file.
+11) Finish!
