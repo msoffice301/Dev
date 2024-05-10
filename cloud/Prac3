@@ -1,1 +1,141 @@
+Demonstrate CRUD operations with suitable database using RESTful Webservice. 
+1. To start the Java DB Database from NetBeans, perform the following steps. 
+Click Services tab -> Expand Databases node. ->Right-click Java DB icon. 
+->Select Start Server
 
+2. To create playerDB database, perform the following steps:
+a. Right-click Java DB icon, select Create Database.
+
+b. Enter the following information for the database:
+Database Name: playerDB
+User Name: john
+Password: john
+Confirm Password:john
+
+c. Click OK.
+3. To connect to the newly created database playerDB, performthe followingsteps
+a. Right-click jdbc:derby://localhost:1527/playerDB connection. 
+b. Select Connect. 
+4. Create tables and populate them with data in playerDB database. 
+a. In NetBeans select File > Open File. 
+b.In the file select playersDB.sql. 
+c. Click Open. The script automatically opens in the SQL Editor.
+5. Examine the contents of the database. 
+a. In the Services window, expand
+the jdbc:derby://localhost:1527/playerDB connection under the Databases node. 
+b. Right-click the connection and select Refresh. 
+c. Expand the john schema. You see the nodes for Tables, Views, andProcedures. 
+d. Expand the Tables node to see the PLAYER and TEAMtables. 
+e. Right-click the PLAYER table node and select View Data.
+
+Player server
+To create RESTful Web Services, you need a Java Web application project. Inthebelowsection you will create a demo Java web project, PlayerServer.
+To create new Java Web Project, select File -> New Project -> Java web -> WebApplication.
+
+Generating web service
+To generate RESTful Web Services do the following:
+1.Right-click the PlayerServer and choose New > Other > Web Services > RESTful WebServices from Database. 
+The New RESTful Web Service wizard opens on theDatabaseTables panel.
+
+2. In the Database Tables window, select Data Source
+3. Next select "New Data Source" from the Drop-down list.
+a. In the Create Data Source Window, enter the following information:
+o JNDI name: jdbc/playerDB
+o Database connection : select jdbc:derby://localhost:1527/playerDB[johnon JOHN]
+b. Click OK.
+The PLAYER and TEAM tables are displayed under the Available Tables column. 
+c. Click Add All. The PLAYER and TEAM tables are displayed under theSelectedTables column.
+
+d. Click Next.
+4. In the Entity Classes window, complete the following steps:
+a. Enter the package name as com.playerentity. b. Click Next.
+
+5. In the Generated Classes Window, click Finish with default values. 
+Test RESTful web Services
+1. To Generate Web Services Test client, complete the following steps. 
+a. Select PlayerServer project. 
+b. Right-click and select Test RESTful Web Services. 
+
+2. Select "Web Test Client in project" and click Browse.
+
+3. a. In the Select Project dialog box, select PlayerServer and click OK. 
+b. Configure Rest Test Client window is displayed, click OK.
+
+Player Client
+To create new Java Project, select File > New Project >Playerclient
+
+Generating Entity Classes from Database
+Implementing CRUD operations on the database, requires creation of EntityClasses to communicate with the database. The following section demonstrateshow to create Entity Classes from database.
+
+1. Right-click PlayerClient Project and select New > Entity Classes FromDatabase.
+
+2. a. In the Database Tables window, Database Connection field
+select jdbc:derby://localhost:1527/playerDB[john on JOHN] fromthe drop-downlist.
+
+You see PLAYER and TEAM tables in Available Tables category
+b. Click Add All
+
+You see both the tables PLAYER and TEAM in Selected Tables Category. c. Click Next
+
+3. In the Entity classes Window, enter the Package Name as playerentities andclickNext.
+
+Create Client
+Complete the following steps to create RESTful client in PlayerClient project. a. Right-click the PlayerClient and choose New > Other > Web Services > RESTful JavaClient. b. Click Next.
+
+1. a.Enter the following details for the fields in the New Restful Java Client window:  Class Name: CreatePlayerJerseyClient
+ Package: playerClient
+ Select the REST resource: From Project and Click Browse.
+b. Select PlayerServer. c. Expand the PlayerServer application. d. Select PlayerFacadeREST[com.playerentity.player].
+
+2.Add the main method. public static void main(String[]args){
+CreateClient client1 = new CreateClient();
+ClientResponse response = client1.findAll_XML(ClientResponse.class);
+GenericType<List<Player>> genericType = new GenericType<List<Player>>(){};
+List<Player> data = new ArrayList<Player>();
+data = (response.getEntity(genericType));
+Player p = new Player();
+p.setFirstname("Harry");
+p.setId(30);
+p.setJerseynumber(60);
+p.setLastname("Potter");
+p.setLastspokenwords("Thanks to my fans");
+client1.create_XML(p);
+}
+
+Read Client
+public static void main(String[]args){
+ReadClient client1 = new ReadClient();
+ClientResponse response = client1.findAll_XML(ClientResponse.class);
+GenericType<List<Player>> genericType = new GenericType<List<Player>>(){};
+List<Player> data = new ArrayList<Player>();
+data = (response.getEntity(genericType));
+System.out.println("Retreiving and Displaying Player Details");
+for(Player players:data){
+System.out.println("FirstName:"+players.getFirstname());
+System.out.println("PlayerID:"+players.getId());
+System.out.println("JerseyNo:"+players.getJerseynumber());
+}
+System.out.println("Data Retreived!!");
+}
+
+Delete Client
+public static void main(String[]args){
+DeleteClient client1 = new DeleteClient();
+client1.remove("1");
+}
+
+Update Client
+public static void main(String[]args){
+UpdateClient client1 = new UpdateClient();
+ClientResponse response = client1.find_XML(ClientResponse.class, "2");
+GenericType<Player>genericType = new GenericType<Player>(){};
+Player player = response.getEntity(genericType);
+System.out.println("First Name: "+player.getFirstname());
+System.out.println("PlayerId: "+player.getId());
+System.out.println("JerseyNo: "+player.getJerseynumber());
+System.out.println("Last Name: "+player.getLastname());
+System.out.println("Last Spoken Words: "+player.getLastspokenwords());
+player.setJerseynumber(100);
+player.setLastspokenwords("I will be retiring soon");
+client1.edit_XML(player);
+}
