@@ -1,1 +1,68 @@
+Define a simple services like Converting Rs into Dollar and Call it from different
+platform like JAVA and .NET
 
+Step1: Start NetBeans8.0.2
+Step2: go to file -> new project -> java web(select) -> web application
+
+Step3: After that Next and give the project name and finish. 
+Step4: right click on the project name page-> new-> webservice
+Give the web service name and package name -> finish
+
+Step5: right click on the web pages ->new -> jsp
+Give the file name and finish it.
+
+Step 6: repeat step 5 and create output.jsp. 
+Step 7: right click on the web page -> new -> web service client-> browse (for project name)
+
+Step7: go to java file and right click on the screen -> insert code ->add web service operation
+
+Step8: give the operation name-> click on add button ->give the name of variable and set the data type- > ok.
+
+Client as Java:
+Step 9: go to input.jsp
+Step 10: open output.jsp . on the left side web service reference and select nestedly till the INRtoDOLLpops
+
+Step 10: right click on the project name and deploy it.
+Final output
+Input.jsp
+
+Client as Python:
+Steps:
+1. Open cmd and Install zeep using command
+pip install zeep
+
+
+2. Open Python IDLE and type following code
+[NOTE: Make sure before running this code your web services is running]
+from zeep import Client
+url = 'http://example.com/your-wsdl-url?wsdl' client = Client(url)
+result = client.service.your_method(param1, param2)
+print(result)
+Client as .Net:
+For C#:
+File->new project-> c#-> Console Application->ok
+Solution explorer-> ConsoleApplication1 -> Right Click -> Add References ->.NetTab -> Select System.ServiceModel -> OK
+
+Solution explorer-> ConsoleApplication1 -> Right Click -> Add Service References-> Copy WSDL Path from browser -> Go ->Expand New Web Service ->OK
+
+ConsoleApplication1:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ConsoleApplication1.ServiceReference1;
+namespace ConsoleApplication1
+{
+class Program
+{
+static void Main(string[] args)
+{
+NewWebServiceClient sc = new NewWebServiceClient();
+Console.WriteLine("TimeAsElapsed" + sc.getTimeAsElapsed());
+Console.WriteLine("TimeAsString" + sc.getTimeAsString());
+Console.ReadLine();
+}
+}
+}
+
+Run File
