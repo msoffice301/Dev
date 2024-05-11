@@ -1,1 +1,142 @@
 
+Code DownloadImage.aspx.cs (Web form)
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Web;
+
+using System.Web.UI;
+
+using System.Web.UI.WebControls;
+
+namespace WebApplication2 {
+
+public partial class Downloadimage System.Web.UI.Page
+
+{
+
+protected void Page_Load(object sender, EventArgs e)
+
+{
+
+} protected void btn1_click(object sender, EventArgs e)
+
+{ Image1. ImageUrl = "~/myHandler.ashx?fileName=" + txt1.Text; Response.Write("Downloading of Image is done");
+
+}}}
+
+Code myHandler.ashx.cs
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq; using System.Web;
+
+namespace WebApplication2
+
+{
+
+/// <summary>
+
+/// Summary description for myHandler
+
+/// </summary>
+
+public class myHandler: IHttpHandler {
+
+public void ProcessRequest (fittpContext context)
+
+{
+
+Practical_MTOM WS new Practical_MTOM();
+
+byte[] binImage = ws.GetImageFile(context.Request ["fileName"]);
+
+if (binImage. Length = 1)
+
+{
+
+}
+
+else
+
+{ context.Response.ContentType = "image/jpeg"; context.Response.BinaryWrite(binImage);
+
+}
+
+}
+
+publ public bool IsReusable
+
+{
+
+get
+
+{ return false;
+
+}
+
+}
+
+
+Code of Webservice.asmx.cs
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Web;
+
+using System.Web.Services; using System.ComponentModel;
+
+namespace WebApplication2
+
+/// <summary>
+
+/// Summary description for Practical_MTOM
+
+/// </summary>
+
+[WebService (Namespace = "http://tempuri.org/")] [WebServiceBinding(ConformsTo WsiProfiles.BasicProfile1_1)]
+
+[System.ComponentModel. ToolboxItem(false)]
+
+// To allow this Web Service to be called from script, using ASP.NET AJAX,
+
+uncomment the following line.
+
+// [System.Web.Script.Services.ScriptService]
+
+public class Practical MTOM: System.Web.Services.WebService
+
+{
+
+[WebMethod]
+
+public string Helloworld()
+
+{ return "Hello World";
+
+} [WebMethod, Description("Get image content")]
+
+public byte[] GetImageFile(string filename) {
+
+if (System.IO.File.Exists(Server.MapPath("~/Images/") + filename)) {
+
+filename);
+
+return System.IO.File.ReadAllBytes(Server.MapPath("~/Images/") +
+
+}
+
+else
+
+{ return new byte[] {0};}}}}
+
