@@ -101,3 +101,62 @@ out.println("Temperature conversion from C to F: "+result2);
 
 10) Now RUN “index.jsp” file.
 11) Finish!
+
+
+
+calculator code
+
+package webservicecalclient;
+
+public class WebServiceCalClient (
+
+try
+
+{
+
+public static void main(String[] args) {
+
+/* calling webservice method */
+
+int a=10;
+
+int b=5;
+
+double r1 =addition(a,b);
+
+double r2 =operation(a,b);
+
+System.out.println("Addition:"+r1);
+
+System.out.println("Substraction:"+r2);
+
+} catch(Exception e){
+
+System.out.println("Error:"+e); }}
+
+private static double addition(int n1, int n2) {
+
+com.my.calculator.CalculatorWS_Service service = new
+
+com.my.calculator.CalculatorWS_Service();
+
+com.my.calculator.CalculatorWS port = service.getCalculatorWSPort(); return port.addition(n1, n2);
+
+}
+
+private static double operation(int n1, int n2) {
+
+com.my.calculator.CalculatorWS_Service service= new
+
+com.my.calculator.CalculatorWS_Service();
+
+com.my.calculator.CalculatorWS port = service.getCalculatorWSPort(); return port.operation(n1, n2);
+
+}
+
+}
+
+
+
+
+
